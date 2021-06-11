@@ -1,0 +1,253 @@
+$red: hsl(0, 100%, 74%) ;
+$green: hsl(154, 59%, 51%);
+$dk-green: hsl(154, 59%, 45%);
+$accent-blue: hsl(248, 32%, 49%);
+$dk-blue: hsl(248, 32%, 29%);
+$dark-blue: hsl(249, 10%, 26%) ;
+$grayish-blue: hsl(246, 25%, 77%);
+$white: hsl(0, 100%, 100%);
+    
+@mixin flex($direction) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+    align-items: center;
+  }
+
+@mixin shadow($color, $opacity) {
+    box-shadow: 0 .375em 0 rgba($color, $opacity);
+}
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+::selection {
+    color: $red;
+    background-color: $white;
+}
+
+body {   
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    color: $white;
+    background-color: $red;
+    background-image: url(./../images/bg-intro-mobile.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width: 100vw;
+    min-height: 100vh;
+    @include flex(column);
+    margin: 0 auto;
+}
+
+.main-container {
+    @include flex(column);
+    margin: 0 auto;
+}
+
+.text-container {
+    padding: 4em 1.25em 1.25em 1.25em;
+    text-align: center;
+    width: 100%;
+
+    h1 {
+        font-size: 2em;
+        line-height: 1.1;
+        margin-bottom: .5em;
+    }
+}
+
+.sign-up-form {
+    padding: 1.25em;
+    width: 100%;
+
+    .form-header {
+        margin-bottom: 1em;
+        padding: 1em 3em;
+        border-radius: .5em;
+        border: none;
+        background: $accent-blue;
+        color: $white;
+        text-align: center;
+        @include shadow($dk-blue, .2);
+
+        span {
+            font-weight: 600;
+        }
+    }
+    
+    .form-container {
+        background-color: $white;
+        padding: 1.5em;
+        border-radius: .5em;
+        @include shadow($dk-blue, .2);
+    }
+
+    .agreement {
+        color: $grayish-blue;
+        font-size: .7em;
+        text-align: center;
+        padding: 1.25em 0 0 0;
+    
+        span {
+            color: $red;
+            font-weight: 600;
+        }
+    }
+    
+}
+
+input {
+    padding: 1em 2em;
+    border: .0625em solid $grayish-blue;
+    border-radius: .3em;
+    color: $dark-blue;
+    font-weight: 700;
+    width: 100%;
+    font-family: inherit;
+
+    &[type=submit] {
+        background: $green;
+        color: $white;
+        text-transform: uppercase;
+        font-weight: 500;
+        border: none;
+        @include shadow($dk-green, 1);
+    
+        &:hover {
+            cursor: pointer;
+            opacity: .8;
+        }
+    }
+}
+
+
+.form-control {
+    position: relative;
+    width: 100%;
+    transition: .5s;
+    @include flex(column);
+
+
+    .icon-error {
+        position: absolute;
+        right: 0;
+        top: 1.5em;
+        transform: translate(-50%,-50%);
+        visibility: hidden;
+    }
+    
+    small {
+        display: inline-block;
+        color: $red;
+        font-size: 12px;
+        text-align: right;
+        padding-top: .25em;
+        width: 100%;
+        font-style: italic;
+        visibility: hidden;
+    }
+
+    &.error {
+        margin-bottom: .625em;
+        
+        input {
+            border: .125em solid $red;
+        }
+        
+        .icon-error, small {
+            visibility: visible;
+        }
+    }
+
+    &.success {
+        .icon-error, small {
+            visibility: hidden;
+        }
+        
+        input {
+            border: .125em solid $green;
+        }
+    }
+
+}
+
+
+footer {
+    width: 100%;
+    text-align: center;
+    color: $white;
+    padding: 2em 1.25em;
+    font-size: .625em;
+
+    a {
+       text-decoration: none;
+       color: inherit;
+       font-weight: 600;
+       position: relative;
+       transition: .5s;
+
+       &:hover {
+        color: $accent-blue;
+       }
+
+       &:after {
+        content: "";
+        position: absolute;
+        bottom: -0.4em;
+        height: .2em;
+        margin: 0 auto;
+        left: 0;
+        right: 0;
+        width: 40%;
+        background: $white;
+        transition: .5s;
+       }
+
+       &:hover:after {
+        width: 100%;
+        background: $accent-blue;
+       }
+    }
+}
+
+@media (min-width: 30em) {
+    body {
+        padding: 0 8%;
+        background-image: url(./../images/bg-intro-desktop.png);
+    }
+
+    footer {
+        padding: .8em;
+        font-size: .8em;
+    }
+}
+
+@media (min-width: 64em) {
+
+    .main-container {
+        @include flex(row);
+    }
+
+    .text-container {
+        text-align: left;
+        padding: 2em;
+        margin: 0;
+
+        h1 {
+            font-size: 3em;
+        }
+    }
+
+    .sign-up-form {
+        padding: 1.5em;
+
+        .form-container {
+            padding: 2.5em;
+        }
+    
+    }
+}
